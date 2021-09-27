@@ -16,3 +16,8 @@ phil_web_project est un site qui présentera les différentes oeuvres d'un auteu
 
     * docker-compose up-d
     * symfony serve -d
+
+### Lancer des tests
+
+```bash
+php bin/phpunit --testdox
