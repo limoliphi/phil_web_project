@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -59,6 +61,16 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $instagram;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Oeuvre::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $oeuvres;
+
+    public function __construct()
+    {
+        $this->oeuvres = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -197,6 +209,36 @@ class User implements UserInterface
     public function setInstagram(?string $instagram): self
     {
         $this->instagram = $instagram;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Oeuvre[]
+     */
+    public function getOeuvres(): Collection
+    {
+        return $this->oeuvres;
+    }
+
+    public function addOeuvre(Oeuvre $oeuvre): self
+    {
+        if (!$this->oeuvres->contains($oeuvre)) {
+            $this->oeuvres[] = $oeuvre;
+            $oeuvre->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOeuvre(Oeuvre $oeuvre): self
+    {
+        if ($this->oeuvres->removeElement($oeuvre)) {
+            // set the owning side to null (unless already changed)
+            if ($oeuvre->getUser() === $this) {
+                $oeuvre->setUser(null);
+            }
+        }
 
         return $this;
     }
