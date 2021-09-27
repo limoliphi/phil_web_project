@@ -85,9 +85,15 @@ class Oeuvre
      */
     private $categorie;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Commentaire::class, mappedBy="oeuvre")
+     */
+    private $commentaires;
+
     public function __construct()
     {
         $this->categorie = new ArrayCollection();
+        $this->commentaires = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -259,6 +265,36 @@ class Oeuvre
     public function removeCategorie(Categorie $categorie): self
     {
         $this->categorie->removeElement($categorie);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Commentaire[]
+     */
+    public function getCommentaires(): Collection
+    {
+        return $this->commentaires;
+    }
+
+    public function addCommentaire(Commentaire $commentaire): self
+    {
+        if (!$this->commentaires->contains($commentaire)) {
+            $this->commentaires[] = $commentaire;
+            $commentaire->setOeuvre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaire(Commentaire $commentaire): self
+    {
+        if ($this->commentaires->removeElement($commentaire)) {
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getOeuvre() === $this) {
+                $commentaire->setOeuvre(null);
+            }
+        }
 
         return $this;
     }
