@@ -1,0 +1,9 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Réalisations{% endblock %}
+
+{% block body %}
+    {% for oeuvre in oeuvres %}
+        <p>{{ oeuvre.nom }}</p>
+    {% endfor %}
+{% endblock %}
