@@ -18,4 +18,16 @@ class OeuvreRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Oeuvre::class);
     }
+
+    /**
+     * @return Oeuvre[] Returns an array of Oeuvre objects
+     */
+    public function lastThreeOeuvres()
+    {
+        return $this->createQueryBuilder('o')
+            ->orderBy('o.id', 'DESC')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult();
+    }
 }
