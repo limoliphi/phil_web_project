@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Blogpost;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -35,6 +36,20 @@ class AppFixtures extends Fixture
         $user->setPassword($password);
 
         $manager->persist($user);
+
+        // Création de 10 Blogpost
+        for ($i=0; $i < 10; $i++) {
+            $blogpost = new Blogpost();
+
+            $blogpost
+                ->setTitre($faker->words(3, true))
+                ->setCreatedAt($faker->dateTimeBetween('-6 month', 'now'))
+                ->setContenu($faker->text(350))
+                ->setSlug($faker->slug(3))
+                ->setUser($user);
+
+            $manager->persist($blogpost);
+        }
 
         $manager->flush();
     }
