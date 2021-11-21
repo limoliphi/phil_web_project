@@ -19,32 +19,15 @@ class BlogpostRepository extends ServiceEntityRepository
         parent::__construct($registry, Blogpost::class);
     }
 
-    // /**
-    //  * @return Blogpost[] Returns an array of Blogpost objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return Blogpost[] Returns an array of Blogpost objects
+     */
+    public function lastThreeBlogposts()
     {
         return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('b.id', 'ASC')
-            ->setMaxResults(10)
+            ->orderBy('b.id', 'DESC')
+            ->setMaxResults(3)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Blogpost
-    {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

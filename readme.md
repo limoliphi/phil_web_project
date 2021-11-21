@@ -11,11 +11,19 @@ phil_web_project est un site qui présentera les différentes oeuvres d'un auteu
     * Symfony CLI
     * Docker
     * Docker-compose
+    * nodejs et npm
 
 ### Lancer l'environnement de développement
 
+    * composer install
+    * npm install
+    * npm run build
     * docker-compose up-d
     * symfony serve -d
+
+### Ajouter des données de tests 
+
+    * symfony console doctrine:fixtures:load
 
 ### Lancer des tests
 
