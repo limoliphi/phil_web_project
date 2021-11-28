@@ -1,0 +1,46 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Acutalités{% endblock %}
+
+{% block body %}
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg8 text-center">
+
+            <hr class="mb-5">
+
+            <h1>Mes six dernières actualités</h1>
+            <h3 class="mb-5 text-muted">
+                Le texte de présentation de la section index des actualités de l'auteur
+            </h3>
+        </div>
+    </div>
+
+    <div class="album py-5 bg-light">
+        <div class="container-fluid">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-2 g-3">
+                {% for blogpost in blogposts %}
+                    <div class="container d-flex justify-content-between">
+                        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                            {% for blogpost in blogposts %}
+                                <div class="col">
+                                    <div class="card border-dark mb-3" style="max-width: 18rem;">
+                                        <div class="card-body text-dark">
+                                            <h5 class="card-title">{{ blogpost.titre }}</h5>
+                                            <p class="card-text">{{ blogpost.contenu|u.truncate(200, '...', false) }}</p>
+                                            <small class="text-muted">Publiée
+                                                le {{ blogpost.createdAt|date('d/m/Y') }}</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        {% do blogposts.setPageRange(2) %}
+        {{ knp_pagination_render(blogposts, 'pagination.html.twig') }}
+    </div>
+{% endblock %}
