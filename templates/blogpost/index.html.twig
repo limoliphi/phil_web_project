@@ -15,9 +15,9 @@
         </div>
     </div>
 
-    <div class="album py-5 bg-light">
-        <div class="container-fluid">
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-2 g-3">
+    <div class="container album py-5 bg-light">
+        <div class="d-flex justify-content-around">
+            <div class="col-12 col-md-10 col-lg8 text-center">
                 {% for blogpost in blogposts %}
                     <div class="container d-flex justify-content-between">
                         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
@@ -26,7 +26,7 @@
                                     <div class="card border-dark mb-3" style="max-width: 18rem;">
                                         <div class="card-body text-dark">
                                             <h5 class="card-title">{{ blogpost.titre }}</h5>
-                                            <p class="card-text">{{ blogpost.contenu|u.truncate(200, '...', false) }}</p>
+                                            <p class="card-text">{{ blogpost.contenu|u.truncate(100, '...', false) }}</p>
                                             <small class="text-muted">Publiée
                                                 le {{ blogpost.createdAt|date('d/m/Y') }}</small>
                                         </div>
